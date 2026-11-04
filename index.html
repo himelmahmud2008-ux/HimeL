@@ -152,7 +152,7 @@ footer p{color:var(--mute);margin-top:10px;max-width:300px}
  <div class="wrap">
   <div>
    <h1>Level up in<br>the <span>neon</span> arena.</h1>
-   <p>Four original arcade games are live. More worlds, challenges and multiplayer modes are on the way.</p>
+   <p>20 original browser games are live. More worlds, challenges and multiplayer modes are on the way.</p>
    <div class="cta"><a href="#library" class="btn btn-p">Browse games</a><button class="btn btn-g" id="randomBtn">🎲 Random game</button></div>
    <div class="stats"><div id="sGames">0<small>Games</small></div><div id="sCats">0<small>Categories</small></div><div id="sFav">0<small>Your favorites</small></div></div>
   </div>
@@ -215,12 +215,28 @@ footer p{color:var(--mute);margin-top:10px;max-width:300px}
 
 <script>
 const GAMES=[
- {n:"Neon Drift",c:"Racing",d:"Dodge incoming traffic in a fast neon lane racer. Beat your best score.",r:0,p:4,h:190,g:"🏎️",f:true,t:true,url:"games/neon-drift.html",type:"Arcade racer"},
- {n:"Prism Breaker",c:"Arcade",d:"Control the paddle, bounce the prism ball and clear waves of glowing bricks.",r:0,p:3,h:285,g:"💎",f:true,t:true,url:"games/brick-breaker.html",type:"Brick breaker"},
- {n:"2048 Neon",c:"Puzzle",d:"Slide and combine matching number tiles. Reach 2048 with smart moves.",r:0,p:2,h:45,g:"🔢",f:true,t:true,url:"games/2048.html",type:"Number puzzle"},
- {n:"Memory Match",c:"Puzzle",d:"Flip cards, remember their positions and match all eight pairs.",r:0,p:1,h:320,g:"🧠",f:false,t:true,url:"games/memory-match.html",type:"Memory game"}
+ {n:"Neon Drift",c:"Racing",d:"Dodge traffic in a neon lane racer.",r:0,p:20,h:190,g:"🏎️",f:true,t:true,url:"games/neon-drift.html",type:"Arcade racer"},
+ {n:"Prism Breaker",c:"Arcade",d:"Bounce the prism ball and clear glowing bricks.",r:0,p:19,h:285,g:"💎",f:true,t:true,url:"games/brick-breaker.html",type:"Brick breaker"},
+ {n:"2048 Neon",c:"Puzzle",d:"Combine number tiles and reach 2048.",r:0,p:18,h:45,g:"🔢",f:true,t:true,url:"games/2048.html",type:"Number puzzle"},
+ {n:"Memory Match",c:"Puzzle",d:"Flip cards and match every pair.",r:0,p:17,h:320,g:"🧠",f:true,t:true,url:"games/memory-match.html",type:"Memory game"},
+ {n:"Sky Patrol",c:"Arcade",d:"Dodge storm clouds and collect stars.",r:0,p:16,h:205,g:"✦",f:true,t:true,url:"games/sky-patrol.html",type:"Sky dodger"},
+ {n:"Cosmic Pulse",c:"Action",d:"Fire energy pulses at incoming space drones.",r:0,p:15,h:275,g:"✧",f:true,t:true,url:"games/neon-shooter.html",type:"Space shooter"},
+ {n:"Jungle Dash",c:"Adventure",d:"Run through a glowing jungle and collect gems.",r:0,p:14,h:105,g:"🌴",f:false,t:true,url:"games/jungle-dash.html",type:"Endless runner"},
+ {n:"Cyber Soccer",c:"Sports",d:"Score goals against a moving keeper.",r:0,p:13,h:190,g:"⚽",f:false,t:true,url:"games/cyber-soccer.html",type:"Arcade sports"},
+ {n:"Drift City",c:"Racing",d:"Steer through neon traffic and survive.",r:0,p:12,h:225,g:"🚘",f:false,t:true,url:"games/drift-city.html",type:"Traffic racer"},
+ {n:"Crystal Quest",c:"Adventure",d:"Collect crystals while avoiding roaming bots.",r:0,p:11,h:165,g:"◇",f:false,t:true,url:"games/crystal-quest.html",type:"Gem hunt"},
+ {n:"Maze Runner",c:"Puzzle",d:"Navigate a neon maze and find the exit.",r:0,p:10,h:260,g:"⌁",f:false,t:false,url:"games/maze-runner.html",type:"Maze game"},
+ {n:"Tower Stack",c:"Arcade",d:"Drop glowing platforms and build a tower.",r:0,p:9,h:35,g:"▤",f:false,t:false,url:"games/tower-stack.html",type:"Stacking game"},
+ {n:"Bubble Pop",c:"Puzzle",d:"Pop colorful bubbles and build combos.",r:0,p:8,h:315,g:"🫧",f:false,t:false,url:"games/bubble-pop.html",type:"Bubble pop"},
+ {n:"Pixel Jumper",c:"Adventure",d:"Jump across floating platforms and climb higher.",r:0,p:7,h:145,g:"🟪",f:false,t:false,url:"games/pixel-platform.html",type:"Platformer"},
+ {n:"Laser Dodge",c:"Action",d:"Move through shifting laser gates.",r:0,p:6,h:300,g:"╳",f:false,t:false,url:"games/laser-dodge.html",type:"Reflex game"},
+ {n:"Orbital Defense",c:"Action",d:"Protect the energy core from meteors.",r:0,p:5,h:235,g:"◉",f:false,t:false,url:"games/orbital-defense.html",type:"Space defense"},
+ {n:"Wave Surfer",c:"Sports",d:"Ride the waves and avoid floating rocks.",r:0,p:4,h:185,g:"🌊",f:false,t:false,url:"games/wave-surfer.html",type:"Survival game"},
+ {n:"Color Shift",c:"Puzzle",d:"Pass through gates that match your color.",r:0,p:3,h:55,g:"◒",f:false,t:false,url:"games/color-shift.html",type:"Color puzzle"},
+ {n:"Rocket Rescue",c:"Adventure",d:"Pilot through space and rescue satellites.",r:0,p:2,h:215,g:"🚀",f:false,t:false,url:"games/rocket-rescue.html",type:"Space adventure"},
+ {n:"Drone Race",c:"Racing",d:"Race through glowing checkpoints.",r:0,p:1,h:285,g:"🛸",f:false,t:false,url:"games/drone-race.html",type:"Drone racer"}
 ];
-const CATS={"Racing":"🏎️","Arcade":"🕹️","Puzzle":"🧩"};
+const CATS={"Racing":"🏎️","Arcade":"🕹️","Puzzle":"🧩","Action":"⚡","Adventure":"🌌","Sports":"🏆"};
 const $=s=>document.querySelector(s);
 GAMES.forEach((g,i)=>g.id=i);
 let favs=[];try{favs=JSON.parse(localStorage.getItem("VORTEX-favs")||"[]")}catch(e){}
