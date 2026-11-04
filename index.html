@@ -183,7 +183,7 @@ footer p{color:var(--mute);margin-top:10px;max-width:300px}
  <div class="tools">
   <input id="search" type="search" placeholder="Search by name, category or description" aria-label="Search library">
   <select id="sort" aria-label="Sort games">
-   <option value="pop">Featured order</option><option value="rate">Game type</option><option value="az">Name A–Z</option>
+   <option value="pop">Featured order</option><option value="rate">Category A–Z</option><option value="az">Name A–Z</option>
   </select>
   <button class="btn btn-g" id="favOnly" aria-pressed="false">♥ Favorites only</button>
   <button class="btn btn-g" id="reset">Reset</button>
@@ -236,7 +236,7 @@ function card(g,i,rank){
  <button class="btn btn-p" data-play="${g.id}">▶ Play Now</button></div></article>`}
 function renderStatic(){
  $("#featGrid").innerHTML=GAMES.filter(g=>g.f).map((g,i)=>card(g,i)).join("");
- $("#trendGrid").innerHTML=GAMES.filter(g=>g.t).sort((a,b)=>b.p-a.p).slice(0,8).map((g,i)=>card(g,i,i+1)).join("");
+ $("#trendGrid").innerHTML=GAMES.filter(g=>g.t).sort((a,b)=>b.p-a.p).slice(0,8).map((g,i)=>card(g,i)).join("");
  $("#catGrid").innerHTML=`<button class="cat" data-cat="All"><span>🎮</span><b>All</b><small>${GAMES.length} games</small></button>`+
   Object.entries(CATS).map(([k,e])=>`<button class="cat" data-cat="${k}"><span>${e}</span><b>${k}</b><small>${GAMES.filter(g=>g.c===k).length} games</small></button>`).join("");
  $("#sGames").firstChild.nodeValue=GAMES.length;$("#sCats").firstChild.nodeValue=Object.keys(CATS).length;
@@ -245,7 +245,7 @@ function renderStatic(){
 function renderLibrary(){
  const q=state.q.trim().toLowerCase();
  let list=GAMES.filter(g=>(state.cat==="All"||g.c===state.cat)&&(!state.favOnly||favs.includes(g.id))&&(!q||(g.n+" "+g.c+" "+g.d).toLowerCase().includes(q)));
- list.sort((a,b)=>state.sort==="az"?a.n.localeCompare(b.n):state.sort==="rate"?b.r-a.r:b.p-a.p);
+ list.sort((a,b)=>state.sort==="az"?a.n.localeCompare(b.n):state.sort==="rate"?a.c.localeCompare(b.c):b.p-a.p);
  $("#gameGrid").innerHTML=list.length?list.map((g,i)=>card(g,i)).join(""):
   `<div class="empty"><h3>No games found</h3><p>Try another search or clear the filters.</p></div>`;
  $("#count").textContent=`${list.length} game${list.length===1?"":"s"}${state.cat!=="All"?" in "+state.cat:""}`;
