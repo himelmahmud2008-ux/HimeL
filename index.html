@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NexPlay – Play. Win. Repeat.</title>
+<meta name="description" content="NexPlay is a free browser gaming hub with featured, trending and categorized games.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#05030a;--panel:#0e0a1a;--panel2:#150f28;--line:#2a1f4d;--violet:#8b2bff;--pink:#d62bff;--glow:#b266ff;--text:#ece6fa;--mute:#9a8fb8;--r:16px;
+--display:'Chakra Petch','Segoe UI',system-ui,sans-serif;--body:'Outfit','Segoe UI',system-ui,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{background:var(--bg);color:var(--text);font-family:var(--body);line-height:1.6;overflow-x:hidden}
+a{color:inherit;text-decoration:none}button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+:focus-visible{outline:2px solid var(--glow);outline-offset:3px}
+.wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+h1,h2,h3{font-family:var(--display);line-height:1.15}
+section{padding:72px 0}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-bottom:28px;flex-wrap:wrap}
+.sec-head h2{font-size:clamp(1.6rem,3.5vw,2.3rem)}
+.sec-head p{color:var(--mute)}
+/* nav */
+nav{position:fixed;inset:0 0 auto 0;z-index:50;background:rgba(5,3,10,.78);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:66px}
+.logo{font-family:var(--display);font-weight:700;font-size:1.5rem;letter-spacing:.5px}
+.logo b{color:var(--glow);text-shadow:0 0 18px var(--violet)}
+.links{display:flex;gap:6px;align-items:center}
+.links a{padding:8px 14px;border-radius:10px;color:var(--mute);transition:.25s}
+.links a:hover,.links a.on{color:#fff;background:var(--panel2)}
+.nav-search{display:flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:0 12px;transition:.25s}
+.nav-search:focus-within{border-color:var(--violet);box-shadow:0 0 0 3px rgba(139,43,255,.25)}
+.nav-search input{background:none;border:0;color:var(--text);padding:9px 0;width:180px;outline:0;font:inherit}
+.burger{display:none;width:42px;height:42px;border-radius:10px;border:1px solid var(--line)}
+.burger span{display:block;width:18px;height:2px;background:#fff;margin:4px auto;transition:.3s}
+.burger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.burger.open span:nth-child(2){opacity:0}
+.burger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:12px;font-weight:600;transition:.25s;font-family:var(--display)}
+.btn-p{background:linear-gradient(135deg,var(--violet),var(--pink));box-shadow:0 0 22px rgba(139,43,255,.55)}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 0 36px rgba(214,43,255,.8)}
+.btn-g{border:1px solid var(--line);background:var(--panel)}
+.btn-g:hover{border-color:var(--violet);box-shadow:0 0 18px rgba(139,43,255,.4)}
+/* hero */
+.hero{position:relative;padding:150px 0 90px;overflow:hidden;min-height:92vh;display:flex;align-items:center}
+.hero::before{content:"";position:absolute;inset:0;background:
+radial-gradient(600px 400px at 80% 20%,rgba(139,43,255,.35),transparent 70%),
+radial-gradient(500px 380px at 10% 90%,rgba(214,43,255,.2),transparent 70%),
+linear-gradient(rgba(139,43,255,.07) 1px,transparent 1px) 0 0/48px 48px,
+linear-gradient(90deg,rgba(139,43,255,.07) 1px,transparent 1px) 0 0/48px 48px;
+mask-image:linear-gradient(#000 60%,transparent)}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+.hero h1{font-size:clamp(2.6rem,7vw,5.2rem);font-weight:700;letter-spacing:-1px;animation:flick 1.6s .2s both}
+.hero h1 span{color:#fff;text-shadow:0 0 12px var(--glow),0 0 40px var(--violet),0 0 80px var(--pink)}
+.hero p{color:var(--mute);font-size:1.15rem;max-width:520px;margin:20px 0 32px}
+.cta{display:flex;gap:14px;flex-wrap:wrap}
+.stats{display:flex;gap:32px;margin-top:44px;flex-wrap:wrap}
+.stats div{font-family:var(--display);font-size:1.7rem;font-weight:700}
+.stats small{display:block;font-family:var(--body);font-size:.85rem;color:var(--mute);font-weight:400}
+@keyframes flick{0%{opacity:0}8%{opacity:1}12%{opacity:.2}18%{opacity:1}24%{opacity:.4}30%,100%{opacity:1}}
+.stack{position:relative;height:420px;perspective:900px}
+.stack .card-mini{position:absolute;width:62%;aspect-ratio:3/4;border-radius:20px;border:1px solid rgba(178,102,255,.5);display:grid;place-items:center;font-size:4.5rem;box-shadow:0 0 40px rgba(139,43,255,.4);animation:float 6s ease-in-out infinite}
+.stack .card-mini:nth-child(1){left:0;top:30px;transform:rotateY(18deg) rotate(-6deg)}
+.stack .card-mini:nth-child(2){right:0;top:0;transform:rotateY(-14deg) rotate(7deg);animation-delay:-3s}
+@keyframes float{50%{translate:0 -16px}}
+/* grid + cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:22px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;transition:transform .3s,border-color .3s,box-shadow .3s;animation:pop .45s both}
+@keyframes pop{from{opacity:0;transform:translateY(14px) scale(.97)}}
+.card:hover{transform:translateY(-6px);border-color:var(--violet);box-shadow:0 12px 40px rgba(139,43,255,.35)}
+.thumb{position:relative;aspect-ratio:16/10;display:grid;place-items:center;font-size:3.6rem;overflow:hidden;background:linear-gradient(135deg,hsl(var(--h) 80% 28%),hsl(calc(var(--h) + 50) 90% 8%))}
+.thumb::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.15) 0 2px,transparent 2px 4px)}
+.thumb i{font-style:normal;filter:drop-shadow(0 0 16px hsl(var(--h) 100% 70%));transition:transform .4s;z-index:1}
+.card:hover .thumb i{transform:scale(1.25) rotate(-6deg)}
+.tag{position:absolute;top:10px;left:10px;z-index:2;font-size:.75rem;padding:3px 10px;border-radius:99px;background:rgba(5,3,10,.7);border:1px solid var(--line);backdrop-filter:blur(6px)}
+.fav{position:absolute;top:8px;right:8px;z-index:2;width:34px;height:34px;border-radius:50%;background:rgba(5,3,10,.7);font-size:1.05rem;transition:.25s}
+.fav:hover{transform:scale(1.15)}.fav.on{color:#ff5bd9;text-shadow:0 0 12px #ff2bd6}
+.rank{position:absolute;bottom:4px;left:12px;z-index:2;font-family:var(--display);font-size:2.4rem;font-weight:700;color:transparent;-webkit-text-stroke:1.5px var(--glow)}
+.body{padding:16px;display:flex;flex-direction:column;gap:8px;flex:1}
+.body h3{font-size:1.15rem}
+.body p{color:var(--mute);font-size:.92rem;flex:1}
+.meta{display:flex;justify-content:space-between;color:var(--mute);font-size:.85rem}
+.meta b{color:#ffd166;font-weight:500}
+.body .btn{justify-content:center;padding:10px;margin-top:4px}
+.feat{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px}
+.feat .card{background:linear-gradient(160deg,var(--panel2),var(--panel))}
+.feat .thumb{aspect-ratio:16/9}
+/* categories */
+.cats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}
+.cat{padding:22px 14px;border-radius:var(--r);background:var(--panel);border:1px solid var(--line);text-align:center;transition:.3s}
+.cat:hover,.cat.on{border-color:var(--violet);background:var(--panel2);box-shadow:0 0 26px rgba(139,43,255,.4);transform:translateY(-4px)}
+.cat.on{outline:1px solid var(--glow)}
+.cat span{display:block;font-size:2rem}.cat b{font-family:var(--display)}.cat small{display:block;color:var(--mute)}
+.tools{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:22px;align-items:center}
+.tools input,.tools select{background:var(--panel);border:1px solid var(--line);color:var(--text);padding:11px 14px;border-radius:12px;font:inherit;outline:0}
+.tools input{flex:1;min-width:200px}
+.tools input:focus,.tools select:focus{border-color:var(--violet)}
+.count{color:var(--mute)}
+.empty{grid-column:1/-1;text-align:center;padding:50px 10px;color:var(--mute);border:1px dashed var(--line);border-radius:var(--r)}
+/* modal */
+.modal{position:fixed;inset:0;z-index:100;background:rgba(3,1,8,.82);backdrop-filter:blur(8px);display:none;place-items:center;padding:16px}
+.modal.open{display:grid}
+.dlg{width:min(640px,100%);max-height:94vh;overflow:auto;background:var(--panel);border:1px solid var(--violet);border-radius:20px;padding:22px;box-shadow:0 0 60px rgba(139,43,255,.45);animation:pop .35s both}
+.dlg-h{display:flex;justify-content:space-between;align-items:start;gap:12px}
+.x{width:38px;height:38px;border-radius:10px;border:1px solid var(--line);flex:none}.x:hover{border-color:var(--pink)}
+.hud{display:flex;justify-content:space-between;margin:16px 0 10px;font-family:var(--display);font-size:1.1rem}
+.arena{position:relative;height:300px;border-radius:14px;background:radial-gradient(circle at 50% 50%,#1a0f36,#07040f);border:1px solid var(--line);overflow:hidden;cursor:crosshair;touch-action:manipulation}
+.arena .msg{position:absolute;inset:0;display:grid;place-items:center;text-align:center;color:var(--mute);padding:20px;pointer-events:none}
+.orb{position:absolute;width:52px;height:52px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,var(--glow) 40%,var(--violet));box-shadow:0 0 24px var(--pink);animation:pop .2s both}
+.dlg .cta{margin-top:14px}
+/* toast */
+.toast{position:fixed;bottom:24px;left:50%;translate:-50% 90px;background:var(--panel2);border:1px solid var(--violet);padding:12px 22px;border-radius:12px;z-index:200;transition:.4s;box-shadow:0 0 26px rgba(139,43,255,.5)}
+.toast.show{translate:-50% 0}
+/* footer */
+footer{border-top:1px solid var(--line);background:#07040e;padding:56px 0 24px}
+.f-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.4fr;gap:32px}
+footer h4{font-family:var(--display);margin-bottom:12px}
+footer li{list-style:none;margin-bottom:8px;color:var(--mute)}footer li a:hover{color:var(--glow)}
+footer p{color:var(--mute);margin-top:10px;max-width:300px}
+.news{display:flex;gap:8px;margin-top:6px}
+.news input{flex:1;min-width:0;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px;color:var(--text);font:inherit;outline:0}
+.news input:focus{border-color:var(--violet)}
+.copy{text-align:center;color:var(--mute);font-size:.88rem;margin-top:40px;padding-top:20px;border-top:1px solid var(--line)}
+@media(max-width:900px){
+.hero .wrap{grid-template-columns:1fr}.stack{height:300px;order:-1}.hero{padding-top:110px}
+.f-grid{grid-template-columns:1fr 1fr}
+.burger{display:block}
+.links{position:fixed;top:66px;left:0;right:0;flex-direction:column;align-items:stretch;background:rgba(5,3,10,.97);padding:14px 20px 22px;border-bottom:1px solid var(--line);translate:0 -130%;transition:.35s;z-index:-1}
+.links.open{translate:0 0}
+.nav-search input{width:100%}.nav-search{margin-top:8px}}
+@media(max-width:520px){.f-grid{grid-template-columns:1fr}section{padding:52px 0}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<nav>
+ <div class="wrap nav-in">
+  <a href="#home" class="logo" aria-label="NexPlay home">Nex<b>Play</b></a>
+  <div class="links" id="links">
+   <a href="#home" class="on">Home</a><a href="#featured">Featured</a><a href="#trending">Trending</a><a href="#categories">Categories</a><a href="#library">All games</a>
+   <label class="nav-search"><span aria-hidden="true">🔍</span><input id="navSearch" type="search" placeholder="Search games  ( / )" aria-label="Search games"></label>
+  </div>
+  <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+ </div>
+</nav>
+
+<header class="hero" id="home">
+ <div class="wrap">
+  <div>
+   <h1>Level up in<br>the <span>neon</span> arena.</h1>
+   <p>Free browser games, no downloads. Pick a game, hit Play Now and chase the high score.</p>
+   <div class="cta"><a href="#library" class="btn btn-p">Browse games</a><button class="btn btn-g" id="randomBtn">🎲 Surprise me</button></div>
+   <div class="stats"><div id="sGames">0<small>Games</small></div><div id="sCats">0<small>Categories</small></div><div id="sFav">0<small>Your favorites</small></div></div>
+  </div>
+  <div class="stack" aria-hidden="true">
+   <div class="card-mini" style="background:linear-gradient(135deg,#4b12a8,#0b0418)">🚀</div>
+   <div class="card-mini" style="background:linear-gradient(135deg,#a3139e,#14061f)">👾</div>
+  </div>
+ </div>
+</header>
+
+<section id="featured"><div class="wrap">
+ <div class="sec-head"><div><h2>Featured games</h2><p>Hand-picked by the NexPlay team.</p></div></div>
+ <div class="feat" id="featGrid"></div>
+</div></section>
+
+<section id="trending" style="background:linear-gradient(#05030a,#0a0615,#05030a)"><div class="wrap">
+ <div class="sec-head"><div><h2>Trending now</h2><p>Most played in the last 24 hours.</p></div></div>
+ <div class="grid" id="trendGrid"></div>
+</div></section>
+
+<section id="categories"><div class="wrap">
+ <div class="sec-head"><div><h2>Game categories</h2><p>Select a category to filter the library below.</p></div></div>
+ <div class="cats" id="catGrid"></div>
+</div></section>
+
+<section id="library" style="padding-top:0"><div class="wrap">
+ <div class="sec-head"><div><h2>All games</h2><p class="count" id="count"></p></div></div>
+ <div class="tools">
+  <input id="search" type="search" placeholder="Search by name, category or description" aria-label="Search library">
+  <select id="sort" aria-label="Sort games">
+   <option value="pop">Most popular</option><option value="rate">Top rated</option><option value="az">Name A–Z</option>
+  </select>
+  <button class="btn btn-g" id="favOnly" aria-pressed="false">♥ Favorites only</button>
+  <button class="btn btn-g" id="reset">Reset</button>
+ </div>
+ <div class="grid" id="gameGrid"></div>
+</div></section>
+
+<footer>
+ <div class="wrap">
+  <div class="f-grid">
+   <div><a href="#home" class="logo">Nex<b>Play</b></a><p>A free, open gaming hub for quick sessions and big scores.</p></div>
+   <div><h4>Explore</h4><ul><li><a href="#featured">Featured</a></li><li><a href="#trending">Trending</a></li><li><a href="#categories">Categories</a></li><li><a href="#library">All games</a></li></ul></div>
+   <div><h4>Support</h4><ul><li><a href="#home">Help center</a></li><li><a href="#home">Privacy</a></li><li><a href="#home">Terms</a></li></ul></div>
+   <div><h4>Get game drops</h4><form class="news" id="news"><input type="email" id="email" placeholder="you@email.com" aria-label="Email address" required><button class="btn btn-p" style="padding:10px 16px">Join</button></form></div>
+  </div>
+  <div class="copy">© <span id="yr"></span> NexPlay. Built with HTML, CSS and JavaScript.</div>
+ </div>
+</footer>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+ <div class="dlg">
+  <div class="dlg-h"><div><h2 id="mTitle"></h2><p id="mDesc" style="color:var(--mute)"></p></div><button class="x" id="mClose" aria-label="Close">✕</button></div>
+  <div class="hud"><span>Score: <b id="score">0</b></span><span>Time: <b id="time">20</b>s</span><span>Best: <b id="best">0</b></span></div>
+  <div class="arena" id="arena"><div class="msg" id="arenaMsg">Press Start, then click the glowing orbs as fast as you can.</div></div>
+  <div class="cta"><button class="btn btn-p" id="startBtn">Start game</button><button class="btn btn-g" id="mFav">♡ Add to favorites</button></div>
+ </div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const GAMES=[
+{n:"Neon Drift",c:"Racing",d:"Slide through glowing city streets in high-speed night races.",r:4.8,p:92400,h:285,g:"🏎️",f:1,t:1},
+{n:"Void Raiders",c:"Action",d:"Blast through waves of alien ships in a fast arcade shooter.",r:4.7,p:88100,h:300,g:"🚀",f:1,t:1},
+{n:"Crypt Cipher",c:"Puzzle",d:"Crack ancient codes and escape the sealed tomb in time.",r:4.6,p:40300,h:265,g:"🗝️",f:1},
+{n:"Pixel Kingdoms",c:"Strategy",d:"Build a pixel realm, train armies and defend your borders.",r:4.9,p:76500,h:275,g:"🏰",f:1,t:1},
+{n:"Shadow Blade",c:"Action",d:"Dash, slash and dodge as a ninja in side-scrolling duels.",r:4.5,p:65200,h:310,g:"🥷",t:1},
+{n:"Orbit Golf",c:"Sports",d:"Putt across floating planets using real low-gravity physics.",r:4.4,p:31800,h:255,g:"⛳"},
+{n:"Quantum Tiles",c:"Puzzle",d:"Slide and match glowing tiles before the grid collapses.",r:4.3,p:28700,h:290,g:"🔷",t:1},
+{n:"Turbo Kart",c:"Racing",d:"Grab boosts and outrun friends on wild neon tracks.",r:4.6,p:54900,h:320,g:"🏁"},
+{n:"Dungeon Delvers",c:"Adventure",d:"Explore randomized dungeons, loot treasure and defeat bosses.",r:4.8,p:71000,h:280,g:"⚔️",t:1},
+{n:"Starlight Tower",c:"Strategy",d:"Place towers along a cosmic road to stop the swarm.",r:4.5,p:47100,h:270,g:"🗼"},
+{n:"Slam Dunk Arcade",c:"Sports",d:"Shoot hoops against the clock and chain perfect swishes.",r:4.2,p:25600,h:250,g:"🏀"},
+{n:"Lost Lighthouse",c:"Adventure",d:"Solve mysteries on a foggy island and uncover its secret.",r:4.7,p:36200,h:235,g:"🌊"},
+{n:"Cyber Chess",c:"Strategy",d:"Classic chess with a futuristic twist and smart opponents.",r:4.6,p:41800,h:295,g:"♟️"},
+{n:"Gem Rush",c:"Puzzle",d:"Swap gems, trigger combos and clear levels for big bonuses.",r:4.1,p:60800,h:305,g:"💎",t:1},
+{n:"Zombie Alley",c:"Action",d:"Survive the night, upgrade weapons and protect the shelter.",r:4.4,p:52400,h:330,g:"🧟"},
+{n:"Sky Pilot",c:"Adventure",d:"Fly a tiny plane through storms and deliver rare cargo.",r:4.3,p:22900,h:260,g:"✈️"}
+];
+const CATS={Action:"💥",Adventure:"🧭",Puzzle:"🧩",Racing:"🏎️",Sports:"🏀",Strategy:"♟️"};
+const $=s=>document.querySelector(s);
+GAMES.forEach((g,i)=>g.id=i);
+let favs=[];try{favs=JSON.parse(localStorage.getItem("nexplay-favs")||"[]")}catch(e){}
+const state={q:"",cat:"All",sort:"pop",favOnly:false};
+const fmt=n=>n>=1000?(n/1000).toFixed(1)+"K":n;
+const saveFavs=()=>{try{localStorage.setItem("nexplay-favs",JSON.stringify(favs))}catch(e){}$("#sFav").firstChild.nodeValue=favs.length};
+function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("show");clearTimeout(toast.x);toast.x=setTimeout(()=>t.classList.remove("show"),2200)}
+function card(g,i,rank){
+ const on=favs.includes(g.id);
+ return `<article class="card" style="animation-delay:${Math.min(i,12)*40}ms">
+ <div class="thumb" style="--h:${g.h}"><span class="tag">${g.c}</span><button class="fav ${on?"on":""}" data-fav="${g.id}" aria-label="Toggle favorite for ${g.n}">${on?"♥":"♡"}</button><i>${g.g}</i>${rank?`<span class="rank">${rank}</span>`:""}</div>
+ <div class="body"><h3>${g.n}</h3><p>${g.d}</p><div class="meta"><b>★ ${g.r}</b><span>${fmt(g.p)} plays</span></div>
+ <button class="btn btn-p" data-play="${g.id}">▶ Play Now</button></div></article>`}
+function renderStatic(){
+ $("#featGrid").innerHTML=GAMES.filter(g=>g.f).map((g,i)=>card(g,i)).join("");
+ $("#trendGrid").innerHTML=GAMES.filter(g=>g.t).sort((a,b)=>b.p-a.p).slice(0,8).map((g,i)=>card(g,i,i+1)).join("");
+ $("#catGrid").innerHTML=`<button class="cat" data-cat="All"><span>🎮</span><b>All</b><small>${GAMES.length} games</small></button>`+
+  Object.entries(CATS).map(([k,e])=>`<button class="cat" data-cat="${k}"><span>${e}</span><b>${k}</b><small>${GAMES.filter(g=>g.c===k).length} games</small></button>`).join("");
+ $("#sGames").firstChild.nodeValue=GAMES.length;$("#sCats").firstChild.nodeValue=Object.keys(CATS).length;
+ $("#sFav").firstChild.nodeValue=favs.length;
+}
+function renderLibrary(){
+ const q=state.q.trim().toLowerCase();
+ let list=GAMES.filter(g=>(state.cat==="All"||g.c===state.cat)&&(!state.favOnly||favs.includes(g.id))&&(!q||(g.n+" "+g.c+" "+g.d).toLowerCase().includes(q)));
+ list.sort((a,b)=>state.sort==="az"?a.n.localeCompare(b.n):state.sort==="rate"?b.r-a.r:b.p-a.p);
+ $("#gameGrid").innerHTML=list.length?list.map((g,i)=>card(g,i)).join(""):
+  `<div class="empty"><h3>No games found</h3><p>Try a different word, switch category, or press Reset.</p></div>`;
+ $("#count").textContent=`${list.length} game${list.length===1?"":"s"}${state.cat!=="All"?" in "+state.cat:""}`;
+ document.querySelectorAll(".cat").forEach(c=>c.classList.toggle("on",c.dataset.cat===state.cat));
+ $("#favOnly").setAttribute("aria-pressed",state.favOnly);
+ $("#favOnly").style.borderColor=state.favOnly?"var(--violet)":"";
+}
+function refreshAll(){renderStatic();renderLibrary()}
+/* search */
+function setQuery(v,fromNav){state.q=v;$("#search").value=v;$("#navSearch").value=v;renderLibrary();
+ if(v&&fromNav)$("#library").scrollIntoView({behavior:"smooth"})}
+$("#search").addEventListener("input",e=>setQuery(e.target.value));
+$("#navSearch").addEventListener("input",e=>{state.q=e.target.value;$("#search").value=e.target.value;renderLibrary()});
+$("#navSearch").addEventListener("keydown",e=>{if(e.key==="Enter"){$("#library").scrollIntoView({behavior:"smooth"});$("#links").classList.remove("open")}});
+document.addEventListener("keydown",e=>{
+ if(e.key==="/"&&!/INPUT|SELECT/.test(document.activeElement.tagName)){e.preventDefault();$("#navSearch").focus()}
+ if(e.key==="Escape")closeModal()});
+$("#sort").addEventListener("change",e=>{state.sort=e.target.value;renderLibrary()});
+$("#favOnly").addEventListener("click",()=>{state.favOnly=!state.favOnly;renderLibrary()});
+$("#reset").addEventListener("click",()=>{Object.assign(state,{q:"",cat:"All",sort:"pop",favOnly:false});$("#sort").value="pop";setQuery("")});
+/* clicks */
+document.addEventListener("click",e=>{
+ const f=e.target.closest("[data-fav]"),p=e.target.closest("[data-play]"),c=e.target.closest("[data-cat]");
+ if(f)toggleFav(+f.dataset.fav);
+ else if(p)openGame(+p.dataset.play);
+ else if(c){state.cat=c.dataset.cat;renderLibrary();$("#library").scrollIntoView({behavior:"smooth"})}
+});
+function toggleFav(id){const i=favs.indexOf(id);i>-1?favs.splice(i,1):favs.push(id);
+ toast(i>-1?"Removed from favorites":"Added to favorites");saveFavs();renderStatic();renderLibrary();syncModalFav()}
+$("#randomBtn").addEventListener("click",()=>openGame(Math.floor(Math.random()*GAMES.length)));
+/* nav */
+const burger=$("#burger");
+burger.addEventListener("click",()=>{const o=$("#links").classList.toggle("open");burger.classList.toggle("open",o);burger.setAttribute("aria-expanded",o)});
+document.querySelectorAll(".links a").forEach(a=>a.addEventListener("click",()=>{$("#links").classList.remove("open");burger.classList.remove("open")}));
+const secs=[...document.querySelectorAll("header[id],section[id]")];
+const spy=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting)document.querySelectorAll(".links a").forEach(a=>a.classList.toggle("on",a.getAttribute("href")==="#"+en.target.id))}),{rootMargin:"-45% 0px -50% 0px"});
+secs.forEach(s=>spy.observe(s));
+/* modal mini-game */
+let cur=null,score=0,tLeft=20,loop=null,spawn=null,running=false;
+const arena=$("#arena");
+function bestKey(){return "nexplay-best-"+cur.id}
+function getBest(){try{return +localStorage.getItem(bestKey())||0}catch(e){return 0}}
+function openGame(id){cur=GAMES[id];$("#mTitle").textContent=cur.n;$("#mDesc").textContent=cur.d;
+ $("#best").textContent=getBest();stopGame();resetHud();$("#arenaMsg").style.display="grid";
+ $("#arenaMsg").textContent="Press Start, then click the glowing orbs as fast as you can.";
+ $("#startBtn").textContent="Start game";syncModalFav();$("#modal").classList.add("open");document.body.style.overflow="hidden";$("#startBtn").focus()}
+function closeModal(){if(!$("#modal").classList.contains("open"))return;stopGame();$("#modal").classList.remove("open");document.body.style.overflow=""}
+function syncModalFav(){if(cur)$("#mFav").textContent=favs.includes(cur.id)?"♥ In favorites":"♡ Add to favorites"}
+function resetHud(){score=0;tLeft=20;$("#score").textContent=0;$("#time").textContent=20}
+function stopGame(){running=false;clearInterval(loop);clearInterval(spawn);arena.querySelectorAll(".orb").forEach(o=>o.remove())}
+function addOrb(){
+ const o=document.createElement("div");o.className="orb";
+ const s=36+Math.random()*28;o.style.width=o.style.height=s+"px";
+ o.style.left=Math.random()*(arena.clientWidth-s)+"px";o.style.top=Math.random()*(arena.clientHeight-s)+"px";
+ o.style.filter=`hue-rotate(${cur.h-280}deg)`;
+ o.addEventListener("pointerdown",ev=>{ev.stopPropagation();o.remove();score+=Math.round(100-s+20);$("#score").textContent=score});
+ arena.appendChild(o);setTimeout(()=>o.remove(),1400)}
+function startGame(){stopGame();resetHud();running=true;$("#arenaMsg").style.display="none";$("#startBtn").textContent="Restart";
+ spawn=setInterval(addOrb,550);addOrb();
+ loop=setInterval(()=>{tLeft--;$("#time").textContent=tLeft;if(tLeft<=0)endGame()},1000)}
+function endGame(){stopGame();const b=getBest();let m=`Time! You scored ${score}.`;
+ if(score>b){try{localStorage.setItem(bestKey(),score)}catch(e){}$("#best").textContent=score;m+=" New best!"}
+ $("#arenaMsg").style.display="grid";$("#arenaMsg").textContent=m;$("#startBtn").textContent="Play again"}
+$("#startBtn").addEventListener("click",startGame);
+$("#mClose").addEventListener("click",closeModal);
+$("#modal").addEventListener("click",e=>{if(e.target.id==="modal")closeModal()});
+$("#mFav").addEventListener("click",()=>cur&&toggleFav(cur.id));
+/* footer */
+$("#news").addEventListener("submit",e=>{e.preventDefault();const v=$("#email").value.trim();
+ if(/^\S+@\S+\.\S+$/.test(v)){toast("You're on the list. Welcome to NexPlay!");e.target.reset()}else toast("Enter a valid email address")});
+$("#yr").textContent=new Date().getFullYear();
+refreshAll();
+</script>
+</body>
+</html>
