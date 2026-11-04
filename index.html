@@ -104,12 +104,12 @@ mask-image:linear-gradient(#000 60%,transparent)}
 /* modal */
 .modal{position:fixed;inset:0;z-index:100;background:rgba(3,1,8,.82);backdrop-filter:blur(8px);display:none;place-items:center;padding:16px}
 .modal.open{display:grid}
-.dlg{width:min(640px,100%);max-height:94vh;overflow:auto;background:var(--panel);border:1px solid var(--violet);border-radius:20px;padding:22px;box-shadow:0 0 60px rgba(139,43,255,.45);animation:pop .35s both}
+.dlg{width:min(900px,100%);max-height:94vh;overflow:auto;background:var(--panel);border:1px solid var(--violet);border-radius:20px;padding:22px;box-shadow:0 0 60px rgba(139,43,255,.45);animation:pop .35s both}
 .dlg-h{display:flex;justify-content:space-between;align-items:start;gap:12px}
 .x{width:38px;height:38px;border-radius:10px;border:1px solid var(--line);flex:none}.x:hover{border-color:var(--pink)}
 .hud{display:flex;justify-content:space-between;margin:16px 0 10px;font-family:var(--display);font-size:1.1rem}
 .arena{position:relative;height:300px;border-radius:14px;background:radial-gradient(circle at 50% 50%,#1a0f36,#07040f);border:1px solid var(--line);overflow:hidden;cursor:crosshair;touch-action:manipulation}
-.arena .msg{position:absolute;inset:0;display:grid;place-items:center;text-align:center;color:var(--mute);padding:20px;pointer-events:none}
+.arena.game-frame{height:min(68vh,560px);cursor:default;padding:0}.arena.game-frame iframe{display:block;width:100%;height:100%;border:0;background:#080512}\n.arena .msg{position:absolute;inset:0;display:grid;place-items:center;text-align:center;color:var(--mute);padding:20px;pointer-events:none}
 .orb{position:absolute;width:52px;height:52px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,var(--glow) 40%,var(--violet));box-shadow:0 0 24px var(--pink);animation:pop .2s both}
 .dlg .cta{margin-top:14px}
 /* toast */
@@ -139,7 +139,7 @@ footer p{color:var(--mute);margin-top:10px;max-width:300px}
 <body>
 <nav>
  <div class="wrap nav-in">
-  <a href="#home" class="logo" aria-label="VORTEX home">Nex<b>Play</b></a>
+  <a href="#home" class="logo" aria-label="VORTEX home">VOR<b>TEX</b></a>
   <div class="links" id="links">
    <a href="#home" class="on">Home</a><a href="#featured">Featured</a><a href="#trending">Trending</a><a href="#categories">Categories</a><a href="#library">All games</a>
    <label class="nav-search"><span aria-hidden="true">🔍</span><input id="navSearch" type="search" placeholder="Search games  ( / )" aria-label="Search games"></label>
@@ -215,7 +215,7 @@ footer p{color:var(--mute);margin-top:10px;max-width:300px}
 
 <script>
 const GAMES=[
-{n:"Neon Drift",c:"Racing",d:"Slide through glowing city streets in high-speed night races.",r:4.8,p:92400,h:285,g:"🏎️",f:1,t:1},
+{n:"Neon Drift",c:"Racing",d:"Slide through glowing city streets in high-speed night races.",r:4.8,p:92400,h:285,g:"🏎️",f:1,t:1,url:"games/neon-racer.html"},
 {n:"Void Raiders",c:"Action",d:"Blast through waves of alien ships in a fast arcade shooter.",r:4.7,p:88100,h:300,g:"🚀",f:1,t:1},
 {n:"Crypt Cipher",c:"Puzzle",d:"Crack ancient codes and escape the sealed tomb in time.",r:4.6,p:40300,h:265,g:"🗝️",f:1},
 {n:"Pixel Kingdoms",c:"Strategy",d:"Build a pixel realm, train armies and defend your borders.",r:4.9,p:76500,h:275,g:"🏰",f:1,t:1},
@@ -300,11 +300,13 @@ let cur=null,score=0,tLeft=20,loop=null,spawn=null,running=false;
 const arena=$("#arena");
 function bestKey(){return "VORTEX-best-"+cur.id}
 function getBest(){try{return +localStorage.getItem(bestKey())||0}catch(e){return 0}}
-function openGame(id){cur=GAMES[id];$("#mTitle").textContent=cur.n;$("#mDesc").textContent=cur.d;
- $("#best").textContent=getBest();stopGame();resetHud();$("#arenaMsg").style.display="grid";
- $("#arenaMsg").textContent="Press Start, then click the glowing orbs as fast as you can.";
- $("#startBtn").textContent="Start game";syncModalFav();$("#modal").classList.add("open");document.body.style.overflow="hidden";$("#startBtn").focus()}
-function closeModal(){if(!$("#modal").classList.contains("open"))return;stopGame();$("#modal").classList.remove("open");document.body.style.overflow=""}
+function openGame(id){cur=GAMES[id];$("#mTitle").textContent=cur.n;$("#mDesc").textContent=cur.url?"Dodge the traffic and beat your high score!":"Press Start, then click the glowing orbs as fast as you can.";
+ stopGame();resetHud();arena.classList.toggle("game-frame",!!cur.url);
+ $(".hud").style.display=cur.url?"none":"flex";$("#startBtn").style.display=cur.url?"none":"inline-flex";
+ if(cur.url){arena.innerHTML='<iframe src="'+cur.url+'" title="'+cur.n+' game" sandbox="allow-scripts" loading="eager"></iframe>'}
+ else{arena.innerHTML='<div class="msg" id="arenaMsg">Press Start, then click the glowing orbs as fast as you can.</div>'}
+ $("#best").textContent=getBest();$("#startBtn").textContent="Start game";syncModalFav();$("#modal").classList.add("open");document.body.style.overflow="hidden";if(!cur.url)$("#startBtn").focus()}
+function closeModal(){if(!$("#modal").classList.contains("open"))return;stopGame();arena.innerHTML="";arena.classList.remove("game-frame");$(".hud").style.display="flex";$("#startBtn").style.display="inline-flex";$("#modal").classList.remove("open");document.body.style.overflow=""}
 function syncModalFav(){if(cur)$("#mFav").textContent=favs.includes(cur.id)?"♥ In favorites":"♡ Add to favorites"}
 function resetHud(){score=0;tLeft=20;$("#score").textContent=0;$("#time").textContent=20}
 function stopGame(){running=false;clearInterval(loop);clearInterval(spawn);arena.querySelectorAll(".orb").forEach(o=>o.remove())}
