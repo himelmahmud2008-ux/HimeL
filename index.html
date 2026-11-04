@@ -152,7 +152,7 @@ footer p{color:var(--mute);margin-top:10px;max-width:300px}
  <div class="wrap">
   <div>
    <h1>Level up in<br>the <span>neon</span> arena.</h1>
-   <p>Free browser games, no downloads. Pick a game, hit Play Now and chase the high score.</p>
+   <p>Play original 3D browser games right here on VORTEX. No download required.</p>
    <div class="cta"><a href="#library" class="btn btn-p">Browse games</a><button class="btn btn-g" id="randomBtn">🎲 Surprise me</button></div>
    <div class="stats"><div id="sGames">0<small>Games</small></div><div id="sCats">0<small>Categories</small></div><div id="sFav">0<small>Your favorites</small></div></div>
   </div>
@@ -194,7 +194,7 @@ footer p{color:var(--mute);margin-top:10px;max-width:300px}
 <footer>
  <div class="wrap">
   <div class="f-grid">
-   <div><a href="#home" class="logo">Nex<b>Play</b></a><p>A free, open gaming hub for quick sessions and big scores.</p></div>
+   <div><a href="#home" class="logo">VOR<b>TEX</b></a><p>A free 3D browser gaming hub. Jump into original VORTEX games.</p></div>
    <div><h4>Explore</h4><ul><li><a href="#featured">Featured</a></li><li><a href="#trending">Trending</a></li><li><a href="#categories">Categories</a></li><li><a href="#library">All games</a></li></ul></div>
    <div><h4>Support</h4><ul><li><a href="#home">Help center</a></li><li><a href="#home">Privacy</a></li><li><a href="#home">Terms</a></li></ul></div>
    <div><h4>Get game drops</h4><form class="news" id="news"><input type="email" id="email" placeholder="you@email.com" aria-label="Email address" required><button class="btn btn-p" style="padding:10px 16px">Join</button></form></div>
@@ -215,24 +215,12 @@ footer p{color:var(--mute);margin-top:10px;max-width:300px}
 
 <script>
 const GAMES=[
-{n:"Neon Drift",c:"Racing",d:"Slide through glowing city streets in high-speed night races.",r:4.8,p:92400,h:285,g:"🏎️",f:1,t:1,url:"games/neon-racer.html?v=3"},
-{n:"Void Raiders",c:"Action",d:"Blast through waves of alien ships in a fast arcade shooter.",r:4.7,p:88100,h:300,g:"🚀",f:1,t:1},
-{n:"Crypt Cipher",c:"Puzzle",d:"Crack ancient codes and escape the sealed tomb in time.",r:4.6,p:40300,h:265,g:"🗝️",f:1},
-{n:"Pixel Kingdoms",c:"Strategy",d:"Build a pixel realm, train armies and defend your borders.",r:4.9,p:76500,h:275,g:"🏰",f:1,t:1},
-{n:"Shadow Blade",c:"Action",d:"Dash, slash and dodge as a ninja in side-scrolling duels.",r:4.5,p:65200,h:310,g:"🥷",t:1},
-{n:"Orbit Golf",c:"Sports",d:"Putt across floating planets using real low-gravity physics.",r:4.4,p:31800,h:255,g:"⛳"},
-{n:"Quantum Tiles",c:"Puzzle",d:"Slide and match glowing tiles before the grid collapses.",r:4.3,p:28700,h:290,g:"🔷",t:1},
-{n:"Turbo Kart",c:"Racing",d:"Grab boosts and outrun friends on wild neon tracks.",r:4.6,p:54900,h:320,g:"🏁"},
-{n:"Dungeon Delvers",c:"Adventure",d:"Explore randomized dungeons, loot treasure and defeat bosses.",r:4.8,p:71000,h:280,g:"⚔️",t:1},
-{n:"Starlight Tower",c:"Strategy",d:"Place towers along a cosmic road to stop the swarm.",r:4.5,p:47100,h:270,g:"🗼"},
-{n:"Slam Dunk Arcade",c:"Sports",d:"Shoot hoops against the clock and chain perfect swishes.",r:4.2,p:25600,h:250,g:"🏀"},
-{n:"Lost Lighthouse",c:"Adventure",d:"Solve mysteries on a foggy island and uncover its secret.",r:4.7,p:36200,h:235,g:"🌊"},
-{n:"Cyber Chess",c:"Strategy",d:"Classic chess with a futuristic twist and smart opponents.",r:4.6,p:41800,h:295,g:"♟️"},
-{n:"Gem Rush",c:"Puzzle",d:"Swap gems, trigger combos and clear levels for big bonuses.",r:4.1,p:60800,h:305,g:"💎",t:1},
-{n:"Zombie Alley",c:"Action",d:"Survive the night, upgrade weapons and protect the shelter.",r:4.4,p:52400,h:330,g:"🧟"},
-{n:"Sky Pilot",c:"Adventure",d:"Fly a tiny plane through storms and deliver rare cargo.",r:4.3,p:22900,h:260,g:"✈️"}
+{n:"Neon Drift 3D",c:"Racing",d:"Race through a neon city and dodge traffic in a 3D night drive.",r:4.8,p:0,h:285,g:"🏎️",f:1,t:1,url:"games/3d-arcade.html?mode=drive"},
+{n:"Cyber Runner 3D",c:"Adventure",d:"Run through a futuristic city and avoid incoming barriers.",r:4.7,p:0,h:300,g:"🏃",f:1,t:1,url:"games/3d-arcade.html?mode=runner"},
+{n:"Galaxy Defender 3D",c:"Action",d:"Navigate an asteroid field in a 3D space survival challenge.",r:4.6,p:0,h:265,g:"🚀",f:1,t:1,url:"games/3d-arcade.html?mode=space"},
+{n:"Sky Rush 3D",c:"Sports",d:"Pilot through glowing sky gates and collect points in 3D.",r:4.7,p:0,h:275,g:"✈️",f:1,t:1,url:"games/3d-arcade.html?mode=flight"}
 ];
-const CATS={Action:"💥",Adventure:"🧭",Puzzle:"🧩",Racing:"🏎️",Sports:"🏀",Strategy:"♟️"};
+const CATS={Action:"💥",Adventure:"🧭",Racing:"🏎️",Sports:"🏀"};
 const $=s=>document.querySelector(s);
 GAMES.forEach((g,i)=>g.id=i);
 let favs=[];try{favs=JSON.parse(localStorage.getItem("VORTEX-favs")||"[]")}catch(e){}
@@ -244,7 +232,7 @@ function card(g,i,rank){
  const on=favs.includes(g.id);
  return `<article class="card" style="animation-delay:${Math.min(i,12)*40}ms">
  <div class="thumb" style="--h:${g.h}"><span class="tag">${g.c}</span><button class="fav ${on?"on":""}" data-fav="${g.id}" aria-label="Toggle favorite for ${g.n}">${on?"♥":"♡"}</button><i>${g.g}</i>${rank?`<span class="rank">${rank}</span>`:""}</div>
- <div class="body"><h3>${g.n}</h3><p>${g.d}</p><div class="meta"><b>★ ${g.r}</b><span>${fmt(g.p)} plays</span></div>
+ <div class="body"><h3>${g.n}</h3><p>${g.d}</p><div class="meta"><b>★ ${g.r}</b><span>3D GAME</span></div>
  <button class="btn btn-p" data-play="${g.id}">▶ Play Now</button></div></article>`}
 function renderStatic(){
  $("#featGrid").innerHTML=GAMES.filter(g=>g.f).map((g,i)=>card(g,i)).join("");
@@ -300,12 +288,10 @@ let cur=null,score=0,tLeft=20,loop=null,spawn=null,running=false;
 const arena=$("#arena");
 function bestKey(){return "VORTEX-best-"+cur.id}
 function getBest(){try{return +localStorage.getItem(bestKey())||0}catch(e){return 0}}
-function openGame(id){cur=GAMES[id];$("#mTitle").textContent=cur.n;$("#mDesc").textContent=cur.url?"Dodge the traffic and beat your high score!":"Press Start, then click the glowing orbs as fast as you can.";
- stopGame();resetHud();arena.classList.toggle("game-frame",!!cur.url);
- $(".hud").style.display=cur.url?"none":"flex";$("#startBtn").style.display=cur.url?"none":"inline-flex";
- if(cur.url){arena.innerHTML='<iframe src="'+cur.url+'" title="'+cur.n+' game" sandbox="allow-scripts" loading="eager"></iframe>'}
- else{arena.innerHTML='<div class="msg" id="arenaMsg">Press Start, then click the glowing orbs as fast as you can.</div>'}
- $("#best").textContent=getBest();$("#startBtn").textContent="Start game";syncModalFav();$("#modal").classList.add("open");document.body.style.overflow="hidden";if(!cur.url)$("#startBtn").focus()}
+function openGame(id){cur=GAMES[id];$("#mTitle").textContent=cur.n;$("#mDesc").textContent=cur.d;
+ stopGame();resetHud();arena.classList.add("game-frame");$(".hud").style.display="none";$("#startBtn").style.display="none";
+ arena.innerHTML='<iframe src="'+cur.url+'" title="'+cur.n+' game" sandbox="allow-scripts" loading="eager"></iframe>';
+ $("#best").textContent="—";syncModalFav();$("#modal").classList.add("open");document.body.style.overflow="hidden"}
 function closeModal(){if(!$("#modal").classList.contains("open"))return;stopGame();arena.innerHTML="";arena.classList.remove("game-frame");$(".hud").style.display="flex";$("#startBtn").style.display="inline-flex";$("#modal").classList.remove("open");document.body.style.overflow=""}
 function syncModalFav(){if(cur)$("#mFav").textContent=favs.includes(cur.id)?"♥ In favorites":"♡ Add to favorites"}
 function resetHud(){score=0;tLeft=20;$("#score").textContent=0;$("#time").textContent=20}
