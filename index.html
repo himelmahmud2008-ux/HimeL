@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>NexPlay – Play. Win. Repeat.</title>
-<meta name="description" content="NexPlay is a free browser gaming hub with featured, trending and categorized games.">
+<title>VORTEX – Play. Win. Repeat.</title>
+<meta name="description" content="VORTEX is a free browser gaming hub with featured, trending and categorized games.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -139,7 +139,7 @@ footer p{color:var(--mute);margin-top:10px;max-width:300px}
 <body>
 <nav>
  <div class="wrap nav-in">
-  <a href="#home" class="logo" aria-label="NexPlay home">Nex<b>Play</b></a>
+  <a href="#home" class="logo" aria-label="VORTEX home">Nex<b>Play</b></a>
   <div class="links" id="links">
    <a href="#home" class="on">Home</a><a href="#featured">Featured</a><a href="#trending">Trending</a><a href="#categories">Categories</a><a href="#library">All games</a>
    <label class="nav-search"><span aria-hidden="true">🔍</span><input id="navSearch" type="search" placeholder="Search games  ( / )" aria-label="Search games"></label>
@@ -164,7 +164,7 @@ footer p{color:var(--mute);margin-top:10px;max-width:300px}
 </header>
 
 <section id="featured"><div class="wrap">
- <div class="sec-head"><div><h2>Featured games</h2><p>Hand-picked by the NexPlay team.</p></div></div>
+ <div class="sec-head"><div><h2>Featured games</h2><p>Hand-picked by the VORTEX team.</p></div></div>
  <div class="feat" id="featGrid"></div>
 </div></section>
 
@@ -199,7 +199,7 @@ footer p{color:var(--mute);margin-top:10px;max-width:300px}
    <div><h4>Support</h4><ul><li><a href="#home">Help center</a></li><li><a href="#home">Privacy</a></li><li><a href="#home">Terms</a></li></ul></div>
    <div><h4>Get game drops</h4><form class="news" id="news"><input type="email" id="email" placeholder="you@email.com" aria-label="Email address" required><button class="btn btn-p" style="padding:10px 16px">Join</button></form></div>
   </div>
-  <div class="copy">© <span id="yr"></span> NexPlay. Built with HTML, CSS and JavaScript.</div>
+  <div class="copy">© <span id="yr"></span> VORTEX. Built with HTML, CSS and JavaScript.</div>
  </div>
 </footer>
 
@@ -235,10 +235,10 @@ const GAMES=[
 const CATS={Action:"💥",Adventure:"🧭",Puzzle:"🧩",Racing:"🏎️",Sports:"🏀",Strategy:"♟️"};
 const $=s=>document.querySelector(s);
 GAMES.forEach((g,i)=>g.id=i);
-let favs=[];try{favs=JSON.parse(localStorage.getItem("nexplay-favs")||"[]")}catch(e){}
+let favs=[];try{favs=JSON.parse(localStorage.getItem("VORTEX-favs")||"[]")}catch(e){}
 const state={q:"",cat:"All",sort:"pop",favOnly:false};
 const fmt=n=>n>=1000?(n/1000).toFixed(1)+"K":n;
-const saveFavs=()=>{try{localStorage.setItem("nexplay-favs",JSON.stringify(favs))}catch(e){}$("#sFav").firstChild.nodeValue=favs.length};
+const saveFavs=()=>{try{localStorage.setItem("VORTEX-favs",JSON.stringify(favs))}catch(e){}$("#sFav").firstChild.nodeValue=favs.length};
 function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("show");clearTimeout(toast.x);toast.x=setTimeout(()=>t.classList.remove("show"),2200)}
 function card(g,i,rank){
  const on=favs.includes(g.id);
@@ -298,7 +298,7 @@ secs.forEach(s=>spy.observe(s));
 /* modal mini-game */
 let cur=null,score=0,tLeft=20,loop=null,spawn=null,running=false;
 const arena=$("#arena");
-function bestKey(){return "nexplay-best-"+cur.id}
+function bestKey(){return "VORTEX-best-"+cur.id}
 function getBest(){try{return +localStorage.getItem(bestKey())||0}catch(e){return 0}}
 function openGame(id){cur=GAMES[id];$("#mTitle").textContent=cur.n;$("#mDesc").textContent=cur.d;
  $("#best").textContent=getBest();stopGame();resetHud();$("#arenaMsg").style.display="grid";
@@ -327,7 +327,7 @@ $("#modal").addEventListener("click",e=>{if(e.target.id==="modal")closeModal()})
 $("#mFav").addEventListener("click",()=>cur&&toggleFav(cur.id));
 /* footer */
 $("#news").addEventListener("submit",e=>{e.preventDefault();const v=$("#email").value.trim();
- if(/^\S+@\S+\.\S+$/.test(v)){toast("You're on the list. Welcome to NexPlay!");e.target.reset()}else toast("Enter a valid email address")});
+ if(/^\S+@\S+\.\S+$/.test(v)){toast("You're on the list. Welcome to VORTEX!");e.target.reset()}else toast("Enter a valid email address")});
 $("#yr").textContent=new Date().getFullYear();
 refreshAll();
 </script>
