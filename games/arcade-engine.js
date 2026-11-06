@@ -24,6 +24,8 @@ const W=960,H=540;let w=W,h=H,player,items=[],parts=[],score=0,best=0,lives=3,ti
 try{best=+(localStorage.getItem('vx-'+key)||0)}catch(e){}
 function resize(){const r=canvas.getBoundingClientRect();canvas.width=Math.max(320,Math.floor(r.width*devicePixelRatio));canvas.height=Math.max(220,Math.floor(r.height*devicePixelRatio));w=canvas.width;h=canvas.height}
 new ResizeObserver(resize).observe(canvas);resize();
+// Create the player before the first animation frame; otherwise draw() crashes on page load.
+player={x:w*.5,y:h*.78,vx:0,vy:0,r:Math.min(w,h)*.025,color:'#8efcff'};
 const rand=(a,b)=>a+Math.random()*(b-a),clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 function reset(){player={x:w*.5,y:h*.78,vx:0,vy:0,r:Math.min(w,h)*.025,color:'#8efcff'};items=[];parts=[];score=0;lives=3;tick=0;over=false;started=true;level=1;document.querySelector('#pause').textContent='Ⅱ Pause';document.querySelector('#score').textContent='0';document.querySelector('#lives').textContent='♥♥♥';document.querySelector('#best').textContent=best;document.querySelector('#overlay').classList.add('hide')}
 function burst(x,y,color,n=12){for(let i=0;i<n;i++)parts.push({x,y,vx:rand(-3,3)*devicePixelRatio,vy:rand(-3,3)*devicePixelRatio,life:rand(20,45),color})}
