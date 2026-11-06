@@ -25,7 +25,7 @@ try{best=+(localStorage.getItem('vx-'+key)||0)}catch(e){}
 function resize(){const r=canvas.getBoundingClientRect();canvas.width=Math.max(320,Math.floor(r.width*devicePixelRatio));canvas.height=Math.max(220,Math.floor(r.height*devicePixelRatio));w=canvas.width;h=canvas.height}
 new ResizeObserver(resize).observe(canvas);resize();
 const rand=(a,b)=>a+Math.random()*(b-a),clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
-function reset(){player={x:w*.5,y:h*.78,vx:0,vy:0,r:Math.min(w,h)*.025,color:'#8efcff'};items=[];parts=[];score=0;lives=3;tick=0;over=false;started=true;level=1;document.querySelector('#overlay').classList.add('hide')}
+function reset(){player={x:w*.5,y:h*.78,vx:0,vy:0,r:Math.min(w,h)*.025,color:'#8efcff'};items=[];parts=[];score=0;lives=3;tick=0;over=false;started=true;level=1;document.querySelector('#pause').textContent='Ⅱ Pause';document.querySelector('#score').textContent='0';document.querySelector('#lives').textContent='♥♥♥';document.querySelector('#best').textContent=best;document.querySelector('#overlay').classList.add('hide')}
 function burst(x,y,color,n=12){for(let i=0;i<n;i++)parts.push({x,y,vx:rand(-3,3)*devicePixelRatio,vy:rand(-3,3)*devicePixelRatio,life:rand(20,45),color})}
 function spawn(){let type=cfg[2],r=rand(10,24)*devicePixelRatio;
 let x=rand(r,w-r),y=-r;
@@ -67,12 +67,12 @@ ctx.restore();
 ctx.fillStyle='rgba(255,255,255,.7)';ctx.font='bold '+(13*devicePixelRatio)+'px system-ui';ctx.fillText(cfg[1],20*devicePixelRatio,h-18*devicePixelRatio);
 }
 function loop(t){let dt=Math.min(.033,(t-last)/1000||.016);last=t;update(dt);draw();requestAnimationFrame(loop)}requestAnimationFrame(loop);
-window.addEventListener('keydown',e=>{keys[e.key]=true;if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight',' '].includes(e.key))e.preventDefault();if(e.key==='Enter'&&(!started||over))reset()});
-window.addEventListener('keyup',e=>keys[e.key]=false);
+window.addEventListener('keydown',e=>{const k=e.key.length===1?e.key.toLowerCase():e.key;keys[k]=true;if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight',' '].includes(e.key))e.preventDefault();if(e.key==='Enter'&&(!started||over))reset()});
+window.addEventListener('keyup',e=>{const k=e.key.length===1?e.key.toLowerCase():e.key;keys[k]=false});
 function pos(e){let r=canvas.getBoundingClientRect();pointer.x=(e.clientX-r.left)/r.width*w;pointer.y=(e.clientY-r.top)/r.height*h}
 canvas.addEventListener('pointerdown',e=>{pointer.down=true;pos(e)});canvas.addEventListener('pointermove',e=>{if(pointer.down)pos(e)});window.addEventListener('pointerup',()=>pointer.down=false);
 document.querySelector('#start').addEventListener('click',reset);
-document.querySelector('#pause').addEventListener('click',()=>{started=!started;document.querySelector('#pause').textContent=started?'Ⅱ Pause':'▶ Resume'});
+document.querySelector('#pause').addEventListener('click',()=>{if(over)return;started=!started;document.querySelector('#pause').textContent=started?'Ⅱ Pause':'▶ Resume'});
 document.querySelector('#back').addEventListener('click',()=>location.href='../index.html');
-document.querySelector('#overlay').classList.remove('hide');document.querySelector('#result').textContent='Best score: '+best;
+document.querySelector('#overlay').classList.remove('hide');document.querySelector('#result').textContent='Best score: '+best;document.querySelector('#best').textContent=best;
 })();
