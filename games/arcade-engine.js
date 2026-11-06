@@ -23,7 +23,7 @@ const cfg=configs[key]||configs['sky-patrol'];document.title=cfg[0]+' — VORTEX
 const W=960,H=540;let w=W,h=H,player,items=[],parts=[],score=0,best=0,lives=3,tick=0,over=false,started=false,keys={},pointer={x:W/2,y:H-90,down:false},last=0,frame=0,level=1;
 try{best=+(localStorage.getItem('vx-'+key)||0)}catch(e){}
 function resize(){const r=canvas.getBoundingClientRect();canvas.width=Math.max(320,Math.floor(r.width*devicePixelRatio));canvas.height=Math.max(220,Math.floor(r.height*devicePixelRatio));w=canvas.width;h=canvas.height}
-new ResizeObserver(resize).observe(canvas);resize();
+if('ResizeObserver' in window){new ResizeObserver(resize).observe(canvas)}else{window.addEventListener('resize',resize)}resize();
 // Create the player before the first animation frame; otherwise draw() crashes on page load.
 player={x:w*.5,y:h*.78,vx:0,vy:0,r:Math.min(w,h)*.025,color:'#8efcff'};
 const rand=(a,b)=>a+Math.random()*(b-a),clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
@@ -73,8 +73,11 @@ window.addEventListener('keydown',e=>{const k=e.key.length===1?e.key.toLowerCase
 window.addEventListener('keyup',e=>{const k=e.key.length===1?e.key.toLowerCase():e.key;keys[k]=false});
 function pos(e){let r=canvas.getBoundingClientRect();pointer.x=(e.clientX-r.left)/r.width*w;pointer.y=(e.clientY-r.top)/r.height*h}
 canvas.addEventListener('pointerdown',e=>{pointer.down=true;pos(e)});canvas.addEventListener('pointermove',e=>{if(pointer.down)pos(e)});window.addEventListener('pointerup',()=>pointer.down=false);
-document.querySelector('#start').addEventListener('click',reset);
+const startButton=document.querySelector('#start');
+startButton.type='button';
+startButton.addEventListener('click',e=>{e.preventDefault();try{reset()}catch(err){console.error('VORTEX start error:',err);const overlay=document.querySelector('#overlay');overlay.classList.remove('hide');document.querySelector('#result').textContent='Game error: '+(err.message||'Please reload the page');}});
 document.querySelector('#pause').addEventListener('click',()=>{if(over)return;started=!started;document.querySelector('#pause').textContent=started?'Ⅱ Pause':'▶ Resume'});
 document.querySelector('#back').addEventListener('click',()=>location.href='../index.html');
 document.querySelector('#overlay').classList.remove('hide');document.querySelector('#result').textContent='Best score: '+best;document.querySelector('#best').textContent=best;
+window.addEventListener('error',e=>{console.error('VORTEX game error:',e.error||e.message);const overlay=document.querySelector('#overlay');if(overlay){overlay.classList.remove('hide');const result=document.querySelector('#result');if(result)result.textContent='Game failed to load. Reload and try again.';}});
 })();
