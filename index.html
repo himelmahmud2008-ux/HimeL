@@ -304,10 +304,13 @@ let cur=null,score=0,tLeft=20,loop=null,spawn=null,running=false;
 const arena=$("#arena");
 function bestKey(){return "VORTEX-best-"+cur.id}
 function getBest(){try{return +localStorage.getItem(bestKey())||0}catch(e){return 0}}
-function openGame(id){cur=GAMES[id];$("#mTitle").textContent=cur.n;$("#mDesc").textContent=cur.d;
- stopGame();resetHud();arena.classList.add("game-frame");$(".hud").style.display="none";$("#startBtn").style.display="none";
- arena.innerHTML='<iframe src="'+cur.url+'" title="'+cur.n+' game" sandbox="allow-scripts allow-same-origin" allow="fullscreen" allowfullscreen loading="eager"></iframe>';
- $("#best").textContent="—";syncModalFav();$("#modal").classList.add("open");document.body.style.overflow="hidden"}
+function openGame(id){
+ const game=GAMES[id];
+ if(!game)return;
+ // Open the actual game document directly. This avoids iframe sandbox/modal
+ // issues that can prevent game input or startup in some browsers.
+ window.location.href=game.url;
+}
 function closeModal(){if(!$("#modal").classList.contains("open"))return;stopGame();arena.innerHTML="";arena.classList.remove("game-frame");$(".hud").style.display="flex";$("#startBtn").style.display="inline-flex";$("#modal").classList.remove("open");document.body.style.overflow=""}
 function syncModalFav(){if(cur)$("#mFav").textContent=favs.includes(cur.id)?"♥ In favorites":"♡ Add to favorites"}
 function resetHud(){score=0;tLeft=20;$("#score").textContent=0;$("#time").textContent=20}
